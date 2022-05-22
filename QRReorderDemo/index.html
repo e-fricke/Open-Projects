@@ -1,37 +1,3 @@
-<?php
-    $errors = '';
-    $myemail = 'orders@cfmglobal.com';
-    if(empty($_POST['name'])  ||
-       empty($_POST['email']) ||
-       empty($_POST['message']))
-    {
-        $errors .= "\n Error: all fields are required";
-    }
-    $name = $_POST['name'];
-    $email_address = $_POST['email'];
-    $message = $_POSqT['message'];
-    if (!preg_match(
-    "/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/i",
-    $email_address))
-    {
-        $errors .= "\n Error: Invalid email address";
-    }
-    
-    if( empty($errors))
-    {
-    $to = $myemail;
-    $email_subject = "Product Used By: $name";
-    $email_body = "The following items have been used by $name".
-    " Here are the details:\n Name: $name \n ".
-    "SAP ID: $sapID";
-    $headers = "From: $myemail\n";
-    $headers .= "Reply-To: $email_address";
-    mail($to,$email_subject,$email_body,$headers);
-    //redirect to the 'thank you' page
-    header('Location: contact-form-thank-you.html');
-    }
-    ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/html5-qrcode@2.0.9/dist/html5-qrcode.min.js"></script>
-    <title>Inventory App Demo</title>
+    <link rel="stylesheet" href="style.css"
+    <title>QR Scanner App Demo</title>
 </head>
 <body>
     
@@ -48,13 +15,12 @@
     <form method="post" name="contact_form"
     action="contact-form-handler.php"> 
         Customer Name:
-        <input type="text" name="name">This will be tied to a customer login and users will be unable to edit this field<br><br>
-        SAP ID:
-        <input type="text" name="sapID">This will be tied to a customer login and users will be unable to edit this field<br><br>
+        <input type="text" name="name" readonly><br>
+        Account Details:
+        <input type="text" name="sapID">Users will be able to edit these fields<br>
         QR Code Data:
-        <textarea id="QRCodeData" readonly></textarea>This will be tied to the QR scan and users will be unable to edit this field<br><br>
-        <input type="submit" value="Submit"> This will generate an email to orders@cfmglobal.com
-    </form>
+        <textarea id="QRCodeData" width="300px" readonly></textarea>This will be tied to the QR scan and users will be unable to edit this field<br>
+        <input type="submit" value="Submit"> This will generate an order to Shopify.
 
     <script>
         function onScanSuccess(decodedText, decodedResult) {
