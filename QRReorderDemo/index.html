@@ -16,11 +16,11 @@
     action="contact-form-handler.php"> 
         Customer Name:
         <input type="text" name="name" readonly>Customers Cannot Edit this field<br>
-        Account Details:
+        Account/Payment Details:
         <input type="text" name="custAcct">Users will be able to edit these fields<br>
         QR Code Data:
         <textarea id="QRCodeData" width="300px" readonly></textarea>This will be tied to the QR scan and users will be unable to edit this field<br>
-        <input type="submit" value="Submit"> This will generate an order to Shopify.
+        <input type="submit" value="Submit"> This button execute code to generate an order.
 
     <script>
         function onScanSuccess(decodedText, decodedResult) {
